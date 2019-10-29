@@ -1,0 +1,130 @@
+<?php
+namespace App\Component\{Uslug};
+
+use \App\Component\Blocks\MyBlocks;
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+class My{Uslug}
+{
+    static public $post_type    = '{slug}';
+    public $name                = '{name}';
+    public $slug                = '{slug}';
+    public $has_archive         = true;
+
+	public function __construct()
+	{
+	}
+
+	public function init()
+	{
+        $this->init_filters();
+        $this->init_actions();
+	}
+
+    public function init_actions()
+	{
+        add_action( 'init', array( $this, 'add_post_type' ) );
+        add_action( 'init', array( $this, 'cpt_fields' ) );
+        add_action( 'init', array( $this, 'cpt_taxonomy' ) );
+    }
+
+    public function init_filters()
+    {
+        add_filter( 'register_post_type_args', array( $this, 'set_gutenberg_blocks' ), 10, 2 );
+    }
+
+    public function add_post_type()
+    {        
+        $labels = array(
+            'name'                  => __( '{name}', APP_TEXTDOMAIN ),
+            'singular_name'         => __( '{name}', APP_TEXTDOMAIN ),
+            'menu_name'             => __( '{name}', APP_TEXTDOMAIN ),
+            'name_admin_bar'        => __( '{name}', APP_TEXTDOMAIN ),
+            'archives'              => __( 'Archivos de la entrada', APP_TEXTDOMAIN ),
+            'attributes'            => __( 'Atributos de la entrada', APP_TEXTDOMAIN ),
+            'parent_item_colon'     => __( 'Entrada padre:', APP_TEXTDOMAIN ),
+            'all_items'             => __( 'Todas las entradas', APP_TEXTDOMAIN ),
+            'add_new_item'          => __( 'Añadir nueva entrada', APP_TEXTDOMAIN ),
+            'add_new'               => __( 'Añadir nueva', APP_TEXTDOMAIN ),
+            'new_item'              => __( 'Nueva entrada', APP_TEXTDOMAIN ),
+            'edit_item'             => __( 'Editar entrada', APP_TEXTDOMAIN ),
+            'update_item'           => __( 'Actualizar entrada', APP_TEXTDOMAIN ),
+            'view_item'             => __( 'Ver entrada', APP_TEXTDOMAIN ),
+            'view_items'            => __( 'Ver entradas', APP_TEXTDOMAIN ),
+            'search_items'          => __( 'Buscar entrada', APP_TEXTDOMAIN ),
+            'not_found'             => __( 'No se han encontrado entradas', APP_TEXTDOMAIN ),
+            'not_found_in_trash'    => __( 'No se han encontrado entradas en la papelera', APP_TEXTDOMAIN ),
+            'featured_image'        => __( 'Imagen destacada', APP_TEXTDOMAIN ),
+            'set_featured_image'    => __( 'Establecer imagen destacada', APP_TEXTDOMAIN ),
+            'remove_featured_image' => __( 'Eliminar imagen destacada', APP_TEXTDOMAIN ),
+            'use_featured_image'    => __( 'Utilizar como imagen destacada', APP_TEXTDOMAIN ),
+            'insert_into_item'      => __( 'Insertar en la entrada', APP_TEXTDOMAIN ),
+            'uploaded_to_this_item' => __( 'Cargar en esta entrada', APP_TEXTDOMAIN ),
+            'items_list'            => __( 'Listado de entradas', APP_TEXTDOMAIN ),
+            'items_list_navigation' => __( 'Navegación del listado de entradas', APP_TEXTDOMAIN ),
+            'filter_items_list'     => __( 'Filtrar listado de entradas', APP_TEXTDOMAIN ),
+        );
+        $args = array(
+            'label'                 => __( $this->name, APP_TEXTDOMAIN ),
+            'description'           => __( $this->name, APP_TEXTDOMAIN ),
+            'labels'                => $labels,
+            'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
+            'hierarchical'          => false,
+            'public'                => false,
+            'show_ui'               => true,
+            'show_in_menu'          => true,
+            'menu_position'         => 21,
+            'menu_icon'             => 'book',
+            'show_in_admin_bar'     => true,
+            'show_in_nav_menus'     => true,
+            'can_export'            => true,
+            'query_var'             => true,
+            'has_archive'           => $this->has_archive,
+            'exclude_from_search'   => false,
+            'publicly_queryable'    => false,
+            'show_in_rest'          => true,
+            'rewrite'               => array( 'slug' => __( $this->slug, APP_TEXTDOMAIN ), 'with_front' => true ),
+            'capability_type'       => 'post',
+        );
+        register_post_type( self::$post_type, $args );
+    }
+
+    public function cpt_fields()
+    {
+        $args = array(
+            'key'       => 'group_' . self::$post_type,
+            'title'     => __( 'Configuración', APP_TEXTDOMAIN ),
+            'fields'    => array(
+                
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'post_type',
+                        'operator' => '==',
+                        'value' => self::$post_type,
+                    ),
+                ),
+            ),
+        );
+        MyBlocks::register_acf_field_group( $args );
+    }
+
+    public function cpt_taxonomy()
+    {
+    }
+
+    public function set_gutenberg_blocks( $args, $post_type )
+    {
+        if ( $post_type == self::$post_type ) {
+            $guntenberg_blocks = array(
+                'core/paragraph',
+                'core/heading',
+            );
+            $args['guntenberg_blocks'] = $guntenberg_blocks;
+        }
+        return $args;
+    }
+
+}

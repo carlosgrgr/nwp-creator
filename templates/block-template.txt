@@ -1,0 +1,76 @@
+<?php
+namespace App\Component\Blocks\{Namespace};
+
+use \App\Component\Blocks\MyBlocks;
+
+if ( ! defined( 'ABSPATH' ) ) { exit; }
+
+class {MyClassBlock}
+{
+    public $name        = '{slug}';
+    public $title       = '{name}';
+    public $description = '{description}';
+    
+    public function __construct()
+    {
+        $this->init_actions();
+        $this->init_filters();
+    }
+
+    public function init_actions()
+    {
+        add_action( 'acf/init', array( $this, 'register_block' ) );
+        add_action( 'init', array( $this, 'register_acf_field_group' ) );
+    }
+
+    public function init_filters()
+    {
+    }
+
+    public function register_block()
+    {
+        if( function_exists( 'acf_register_block_type' ) ) {
+            $icon = 'book';
+            acf_register_block_type(array(
+                'name'				=> $this->name,
+                'title'				=> __( $this->title, APP_TEXTDOMAIN ),
+                'description'		=> __( $this->description, APP_TEXTDOMAIN ),
+                'render_template'	=> 'src/Blocks/{Namespace}/views/content-block.php',
+                'category'			=> 'common',
+                'icon'				=> $icon,
+                'supports'          => array(
+                    'align' => false,
+                ),
+                'keywords'			=> array( 'clientes' ),
+                'post_types'        => array( 'page' ),
+                'mode'              => 'preview',
+                'enqueue_assets' 	=> function() {
+                    wp_enqueue_style( 'block-styles-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Namespace}/css/{slug}.css', array(), '1.0.0' );
+                    wp_enqueue_script( 'block-scripts-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Namespace}/js/{slug}.js', array(), '1.0.0', true );
+                },
+            ));
+        }
+    }
+
+    public function register_acf_field_group()
+    {
+        $args = array(
+            'key' => 'group_block_' . $this->name,
+            'title' => __( 'Block: ' . $this->title, APP_TEXTDOMAIN ),
+            'fields' => array(
+                // Put here your fields
+            ),
+            'location' => array(
+                array(
+                    array(
+                        'param' => 'block',
+                        'operator' => '==',
+                        'value' => 'acf/' . $this->name,
+                    ),
+                ),
+            ),
+        );
+        MyBlocks::register_acf_field_group( $args );
+    }
+
+}

@@ -60,6 +60,27 @@ class Nwp_Command extends WP_CLI_Command
                 WP_CLI::error( 'Error al crear carpeta' );
             }
         }
+
+        if ( $file = fopen( TEMPLATEPATH . '/src/Blocks/' . ucfirst( $this->slug ) . '/My' . ucfirst( $this->slug ) . '.php', "a" ) ) {
+            WP_CLI::log( 'Clase de cpt creado' );
+            if ( copy( '../templates/cpt-class-default.txt', TEMPLATEPATH . '/src/Blocks/' . ucfirst( $this->slug ) . '/My' . ucfirst( $this->slug ) . '.php' ) ) {
+                // ir corrigiendo
+                $str = file_get_contents( './' . ucfirst( $this->slug ) . '/My' . ucfirst( $this->slug ) . '.php' );
+                
+                $str = str_replace("{slug}", $this->slug, $str);
+                $str = str_replace("{name}", $this->name, $str);
+                $str = str_replace("{Uslug}", ucfirst( $this->slug ), $str);
+                
+                file_put_contents( './' . ucfirst( $this->slug ) . '/My' . ucfirst( $this->slug ) . '.php', $str );
+                
+                echo "Contenido de la clase creada";
+            } else {
+                echo "Eror al crear contenido de la clase";
+            }
+        } else {
+            echo "Error al crear la clase del bloque";
+        }
+        fclose($file);
     }
 
     private function delete_block( $slug )
