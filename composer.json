@@ -1,0 +1,28 @@
+{
+    "name": "carlos.garciar/nwp-structure-creator",
+    "description": "My first Composer porject",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Carlos Garcia Rodriguez",
+            "email": "carlos.garciar@nateevo.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "extra": {
+        "commands": [
+            "nwp"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        },
+        "files": [
+            "nwp-command.php"
+        ]
+    }
+}
