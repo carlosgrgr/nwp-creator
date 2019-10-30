@@ -1,7 +1,7 @@
 {
     "name": "carlos.garciar/nwp-structure-creator",
+    "version": "1.0.0",
     "description": "My first Composer porject",
-    "type": "library",
     "authors": [
         {
             "name": "Carlos Garcia Rodriguez",
