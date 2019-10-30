@@ -1,14 +1,17 @@
 {
-    "name": "carlos.garciar/nwp-structure-creator",
+    "name": "carlosgrgr/nwp-structure-creator",
     "version": "1.0.0",
     "description": "My first Composer porject",
     "authors": [
         {
             "name": "Carlos Garcia Rodriguez",
-            "email": "carlos.garciar@nateevo.com"
+            "email": "carlosgrgr@gmail.com"
         }
     ],
     "minimum-stability": "dev",
+    "require-dev": {
+        "php": ">=5.3.0"
+    },
     "require": {
         "php": ">=5.3.0"
     },
