@@ -1,11 +1,11 @@
 <?php
-namespace App\Component\Blocks\{Namespace};
+namespace App\Component\Blocks\{Uslug}Block;
 
 use \App\Component\Blocks\MyBlocks;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-class {MyClassBlock}
+class My{Uslug}Block
 {
     public $name        = '{slug}';
     public $title       = '{name}';
@@ -35,7 +35,7 @@ class {MyClassBlock}
                 'name'				=> $this->name,
                 'title'				=> __( $this->title, APP_TEXTDOMAIN ),
                 'description'		=> __( $this->description, APP_TEXTDOMAIN ),
-                'render_template'	=> 'src/Blocks/{Namespace}/views/content-block.php',
+                'render_template'	=> 'src/Blocks/{Uslug}Block/views/content-block.php',
                 'category'			=> 'common',
                 'icon'				=> $icon,
                 'supports'          => array(
@@ -45,8 +45,8 @@ class {MyClassBlock}
                 'post_types'        => array( 'page' ),
                 'mode'              => 'preview',
                 'enqueue_assets' 	=> function() {
-                    wp_enqueue_style( 'block-styles-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Namespace}/css/{slug}.css', array(), '1.0.0' );
-                    wp_enqueue_script( 'block-scripts-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Namespace}/js/{slug}.js', array(), '1.0.0', true );
+                    wp_enqueue_style( 'block-styles-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Uslug}Block/css/{slug}.css', array(), '1.0.0' );
+                    wp_enqueue_script( 'block-scripts-' . $this->name, get_template_directory_uri() . '/src/Blocks/{Uslug}Block/js/{slug}.js', array(), '1.0.0', true );
                 },
             ));
         }
