@@ -121,16 +121,13 @@ class Nwp_Command extends WP_CLI_Command
         $block_folder_path = '/src/Blocks/' . ucfirst( $slug ) . 'Block';
         WP_CLI::log( TEMPLATEPATH . $block_folder_path );
         if ( file_exists( TEMPLATEPATH . $block_folder_path ) ) {
-           array_map( 'unlink', glob( TEMPLATEPATH . $block_folder_path . '/*/*/*.*' ) );
-           array_map( 'unlink', glob( TEMPLATEPATH . $block_folder_path . '/*/*.*' ) );
-           array_map( 'unlink', glob( TEMPLATEPATH . $block_folder_path . '/*.*' ) );
-           array_map( 'rmdir', glob( TEMPLATEPATH . $block_folder_path . '/*/*' ) );
-           array_map( 'rmdir', glob( TEMPLATEPATH . $block_folder_path . '/*' ) );
-           if( rmdir( TEMPLATEPATH . $block_folder_path ) ) {
+           if( $this->rrmdir( TEMPLATEPATH . $block_folder_path ) ) {
                WP_CLI::success( 'Bloque eliminado con éxito.' );
            } else {
                WP_CLI::error( 'Ha habido algún problema borrando el bloque. Prueba a eliminar la carpeta ' . TEMPLATEPATH . $block_folder_path . ' manualmente.' );
            }
+        } else {
+            WP_CLI::error( 'No existe ningún bloque con ese slug.' );
         }
     }
 
@@ -142,6 +139,28 @@ class Nwp_Command extends WP_CLI_Command
     private function delete_cpt( $name, $slug )
     {
         WP_CLI::log( 'Se va a eliminar un cpt' );
+    }
+
+    private function rrmdir($dir) 
+    {
+        
+        if ( is_dir( $dir ) ) {
+            $objects = scandir( $dir );
+            foreach ( $objects as $object ) {
+                if ( $object != "." && $object != ".." ) {
+                    if ( is_dir( $dir."/".$object ) && !is_link( $dir."/".$object ) ){
+                        $this->rrmdir( $dir."/".$object );
+                    } else {
+                        unlink( $dir."/".$object );
+                    }
+                }
+            }
+            if ( rmdir( $dir ) ) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 }
