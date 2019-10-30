@@ -93,16 +93,16 @@ class Nwp_Command extends WP_CLI_Command
                 }
                 if ( $type != 'views' ) {
                     if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/' . $slug . '.' . $type, "a" ) ) {
-                        echo "Archivo $type creado";
+                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        echo "Error al crear el archivo $type";
+                        WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 } else {
                     if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
-                        echo "Archivo $type creado";
+                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        echo "Error al crear el archivo $type";
+                        WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 }
@@ -170,16 +170,16 @@ class Nwp_Command extends WP_CLI_Command
                 }
                 if ( $type != 'views' ) {
                     if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/My' . ucfirst( $slug ) . '.' . $type, "a" ) ) {
-                        echo "Archivo $type creado";
+                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        echo "Error al crear el archivo $type";
+                        WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 } else {
                     if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/content-' . $slug . '.php', "a" ) ) {
-                        echo "Archivo $type creado";
+                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        echo "Error al crear el archivo $type";
+                        WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 }
