@@ -3,7 +3,10 @@
 class Nwp_Command extends WP_CLI_Command
 {
     /**
-     * Create block and cpt files structure for nwp theme
+     * Create or delete block or cpt files structure for nwp theme
+     * 
+     * Installable packages are listed in the
+     * [repository](https://carlosgrgr@bitbucket.org/carlosgrgr/nwp-structure-creator.git).
      * 
      * ## OPTIONS
      * 
@@ -13,14 +16,29 @@ class Nwp_Command extends WP_CLI_Command
      * <action>
      * : String for action. create | delete
      * 
-     * [--name=<Nombre_del_bloque_o_cpt>]
+     * [--name=<block/cpt name>]
      * : String. Block or CPT name.
      * 
-     * [--slug=<slug>]
+     * [--slug=<block/cpt slug>]
      * : String. Bock or CPT slug.
      * 
-     * [--description=<description>]
+     * [--description=<blog description>]
      * : String. Only for blocks. String to add a description.
+     * 
+     * 
+     * ## EXAMPLES
+     * 
+     *      # Create block
+     *      $ wp nwp block create --name="My block" --slug=my-block --description="My block description"
+     * 
+     *      # Delete block
+     *      $ wp nwp block delete --slug=my-block
+     * 
+     *      # Create CPT
+     *      $ wp nwp cpt create --name="My CPT" --slug=my-cpt
+     *      
+     *      # Delete CPT
+     *      $ wp nwp cpt delete --slug=my-cpt
      * 
      */    
 
