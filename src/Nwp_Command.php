@@ -155,7 +155,7 @@ class Nwp_Command extends WP_CLI_Command
             $cpt_name[$lastPos + 1] = strtoupper( $cpt_name[$lastPos + 1] );
             $lastPos = $lastPos+ strlen($needle);
         }
-        $cpt_name = str_replace( '-', '', $cpt_name ) . 'Block';
+        $cpt_name = str_replace( '-', '', $cpt_name );
 
         $cpt_folder_path = '/src/' . $cpt_name;
 
