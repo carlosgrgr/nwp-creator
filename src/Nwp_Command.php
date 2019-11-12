@@ -55,7 +55,19 @@ class Nwp_Command extends WP_CLI_Command
 
     private function create_block( $name, $slug, $description )
     {
-        $block_folder_path = '/src/Blocks/' . ucfirst( $slug ) . 'Block';
+        $needle = '-';
+        $lastPos = 0;
+        $positions = array();
+        $block_name = ucfirst( $slug );
+
+        while ( ( $lastPos = strpos( $block_name, $needle, $lastPos ) ) !== false ) {
+            $positions[] = $lastPos;
+            $block_name[$lastPos + 1] = strtoupper( $block_name[$lastPos + 1] );
+            $lastPos = $lastPos+ strlen($needle);
+        }
+        $block_name = str_replace( '-', '', $block_name ) . 'Block';
+
+        $block_folder_path = '/src/Blocks/' . $block_name;
 
         WP_CLI::log( 'Se va a crear un bloque en ' . TEMPLATEPATH . $block_folder_path );
         if ( !file_exists( TEMPLATEPATH . $block_folder_path ) ) {
@@ -66,15 +78,14 @@ class Nwp_Command extends WP_CLI_Command
             }
         }
 
-        if ( $file = fopen( TEMPLATEPATH . $block_folder_path . '/My' . ucfirst( $slug ) . 'Block.php', 'a' ) ) {
-            $block_class_path = $block_folder_path . '/My' . ucfirst( $slug ) . 'Block.php';
+        if ( $file = fopen( TEMPLATEPATH . $block_folder_path . '/My' . $block_name . '.php', 'a' ) ) {
+            $block_class_path = $block_folder_path . '/My' . $block_name . '.php';
             
             if ( copy( __DIR__ . '/../templates/block-template.txt', TEMPLATEPATH . $block_class_path ) ) {
                 $str = file_get_contents( TEMPLATEPATH . $block_class_path );
                 $str = str_replace( "{slug}", $slug, $str );
                 $str = str_replace( "{name}", $name, $str );
-                $str = str_replace( "{title}", ucfirst( $name ), $str );
-                $str = str_replace( "{Uslug}", ucfirst( $slug ), $str );
+                $str = str_replace( "{blockName}", $block_name, $str );
                 $str = str_replace( "{description}", $description, $str );
                 
                 file_put_contents( TEMPLATEPATH . $block_class_path, $str );
