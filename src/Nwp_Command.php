@@ -130,7 +130,20 @@ class Nwp_Command extends WP_CLI_Command
     private function delete_block( $slug )
     {
         WP_CLI::log( 'Se va a eliminar un block' );
-        $block_folder_path = '/src/Blocks/' . ucfirst( $slug ) . 'Block';
+
+        $needle = '-';
+        $lastPos = 0;
+        $positions = array();
+        $block_name = ucfirst( $slug );
+
+        while ( ( $lastPos = strpos( $block_name, $needle, $lastPos ) ) !== false ) {
+            $positions[] = $lastPos;
+            $block_name[$lastPos + 1] = strtoupper( $block_name[$lastPos + 1] );
+            $lastPos = $lastPos+ strlen($needle);
+        }
+        $block_name = str_replace( '-', '', $block_name ) . 'Block';
+
+        $block_folder_path = '/src/Blocks/' . $block_name;
 
         if ( file_exists( TEMPLATEPATH . $block_folder_path ) ) {
            if( $this->rrmdir( TEMPLATEPATH . $block_folder_path ) ) {
@@ -221,7 +234,20 @@ class Nwp_Command extends WP_CLI_Command
     private function delete_cpt( $slug )
     {
         WP_CLI::log( 'Se va a eliminar un cpt' );
-        $cpt_folder_path = '/src/' . ucfirst( $slug );
+
+        $needle = '-';
+        $lastPos = 0;
+        $positions = array();
+        $cpt_name = ucfirst( $slug );
+
+        while ( ( $lastPos = strpos( $cpt_name, $needle, $lastPos ) ) !== false ) {
+            $positions[] = $lastPos;
+            $cpt_name[$lastPos + 1] = strtoupper( $cpt_name[$lastPos + 1] );
+            $lastPos = $lastPos+ strlen($needle);
+        }
+        $cpt_name = str_replace( '-', '', $cpt_name );
+
+        $cpt_folder_path = '/src/' . $cpt_name;
 
         if ( file_exists( TEMPLATEPATH . $cpt_folder_path ) ) {
            if( $this->rrmdir( TEMPLATEPATH . $cpt_folder_path ) ) {
