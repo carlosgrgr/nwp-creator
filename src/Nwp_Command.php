@@ -22,7 +22,7 @@ class Nwp_Command extends WP_CLI_Command
      * [--slug=<block/cpt slug>]
      * : String. Bock or CPT slug.
      * 
-     * [--description=<blog description>]
+     * [--description=<block description>]
      * : String. Only for blocks. String to add a description.
      * 
      * 
