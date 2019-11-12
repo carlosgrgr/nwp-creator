@@ -41,7 +41,7 @@ class My{blockName}
                 'supports'          => array(
                     'align' => false,
                 ),
-                'keywords'			=> array( '' ),
+                'keywords'			=> array( ),
                 'post_types'        => array( 'page' ),
                 'mode'              => 'preview',
                 'enqueue_assets' 	=> function() {

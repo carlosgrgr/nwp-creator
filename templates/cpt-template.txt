@@ -1,11 +1,11 @@
 <?php
-namespace App\Component\{Uslug};
+namespace App\Component\{cptName};
 
 use \App\Component\Blocks\MyBlocks;
 
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
-class My{Uslug}
+class My{cptName}
 {
     static public $post_type    = '{slug}';
     public $name                = '{name}';

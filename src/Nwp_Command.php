@@ -145,7 +145,19 @@ class Nwp_Command extends WP_CLI_Command
 
     private function create_cpt( $name, $slug )
     {
-        $cpt_folder_path = '/src/' . ucfirst( $slug );
+        $needle = '-';
+        $lastPos = 0;
+        $positions = array();
+        $cpt_name = ucfirst( $slug );
+
+        while ( ( $lastPos = strpos( $cpt_name, $needle, $lastPos ) ) !== false ) {
+            $positions[] = $lastPos;
+            $cpt_name[$lastPos + 1] = strtoupper( $cpt_name[$lastPos + 1] );
+            $lastPos = $lastPos+ strlen($needle);
+        }
+        $cpt_name = str_replace( '-', '', $cpt_name ) . 'Block';
+
+        $cpt_folder_path = '/src/' . $cpt_name;
 
         WP_CLI::log( 'Se va a crear un cpt en ' . TEMPLATEPATH . $cpt_folder_path );
         if ( !file_exists( TEMPLATEPATH . $cpt_folder_path ) ) {
@@ -156,14 +168,14 @@ class Nwp_Command extends WP_CLI_Command
             }
         }
 
-        if ( $file = fopen( TEMPLATEPATH . $cpt_folder_path . '/My' . ucfirst( $slug ) . '.php', 'a' ) ) {
-            $cpt_class_path = $cpt_folder_path . '/My' . ucfirst( $slug ) . '.php';
+        if ( $file = fopen( TEMPLATEPATH . $cpt_folder_path . '/My' . $cpt_name . '.php', 'a' ) ) {
+            $cpt_class_path = $cpt_folder_path . '/My' . $cpt_name . '.php';
             
             if ( copy( __DIR__ . '/../templates/cpt-template.txt', TEMPLATEPATH . $cpt_class_path ) ) {
                 $str = file_get_contents( TEMPLATEPATH . $cpt_class_path );
                 $str = str_replace( "{slug}", $slug, $str );
                 $str = str_replace( "{name}", $name, $str );
-                $str = str_replace( "{Uslug}", ucfirst( $slug ), $str );
+                $str = str_replace( "{cptName}", $cpt_name, $str );
                 
                 file_put_contents( TEMPLATEPATH . $cpt_class_path, $str );
                 
@@ -180,7 +192,7 @@ class Nwp_Command extends WP_CLI_Command
                     mkdir( TEMPLATEPATH . $cpt_folder_path . '/' . $type, 0755, true );
                 }
                 if ( $type != 'views' ) {
-                    if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/My' . ucfirst( $slug ) . '.' . $type, "a" ) ) {
+                    if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/My' . $cpt_name . '.' . $type, "a" ) ) {
                         WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
                         WP_CLI::log( 'Error al crear el archivo ' . $type );
