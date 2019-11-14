@@ -16,13 +16,13 @@ class Nwp_Command extends WP_CLI_Command
      * <action>
      * : String for action. create | delete
      * 
-     * [--name=<block/cpt name>]
+     * [--name=<block_name>]
      * : String. Block or CPT name.
      * 
-     * [--slug=<block/cpt slug>]
+     * [--slug=<block_slug>]
      * : String. Bock or CPT slug.
      * 
-     * [--description=<block description>]
+     * [--description=<block_description>]
      * : String. Only for blocks. String to add a description.
      * 
      * 
