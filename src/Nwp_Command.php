@@ -83,7 +83,7 @@ class Nwp_Command extends WP_CLI_Command
             $block_name[$lastPos + 1] = strtoupper( $block_name[$lastPos + 1] );
             $lastPos = $lastPos+ strlen($needle);
         }
-        $block_name = str_replace( '-', '', $block_name ) . 'Block';
+        $block_name = str_replace( '-', '', $block_name );
 
         $block_folder_path = '/src/Blocks/' . $block_name;
 
@@ -159,7 +159,7 @@ class Nwp_Command extends WP_CLI_Command
             $block_name[$lastPos + 1] = strtoupper( $block_name[$lastPos + 1] );
             $lastPos = $lastPos+ strlen($needle);
         }
-        $block_name = str_replace( '-', '', $block_name ) . 'Block';
+        $block_name = str_replace( '-', '', $block_name );
 
         $block_folder_path = '/src/Blocks/' . $block_name;
 
