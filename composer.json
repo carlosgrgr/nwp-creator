@@ -1,5 +1,5 @@
 {
-    "name": "nwp-structure-creator",
+    "name": "carlosgrgr/nwp-structure-creator",
     "version": "1.0.0",
     "description": "My first Composer porject",
     "authors": [
@@ -15,6 +15,12 @@
     "require": {
         "php": ">=5.3.0"
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://carlosgrgr@bitbucket.org/carlosgrgr/nwp-structure-creator.git"
+        }
+    ],
     "extra": {
         "commands": [
             "nwp"
@@ -22,7 +28,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src/"
+            "": "src/"
         },
         "files": [
             "nwp-command.php"
