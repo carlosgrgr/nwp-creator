@@ -1,5 +1,7 @@
 <?php
 
+Namespace App;
+
 class Nwp_Command extends WP_CLI_Command
 {
     /**
