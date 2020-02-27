@@ -1,6 +1,5 @@
 {
     "name": "carlosgrgr/nwp-structure-creator",
-    "type": "wp-cli-package",
     "description": "My first wpcli package",
     "license": "proprietary",
     "authors": [
@@ -12,12 +11,6 @@
     "require": {
         "php": ">=7.3.12"
     },
-    "repositories": [
-        {
-            "type": "git",
-            "url": "https://carlosgrgr@bitbucket.org/carlosgrgr/nwp-structure-creator.git"
-        }
-    ],
     "extra": {
         "commands": [
             "nwp"
