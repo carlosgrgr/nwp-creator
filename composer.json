@@ -1,29 +1,19 @@
 {
-    "name": "carlosgrgr/nwp-creator",
+    "name": "wp-cli/nwp-creator",
     "description": "My first wpcli package",
+    "type": "wp-cli-package",
+    "homepage": "https://github.com/wp-cli/server-command",
     "license": "MIT",
     "authors": [
         {
-            "name": "Carlos Garcia Rodriguez",
-            "email": "carlosgrgr@gmail.com"
-        }
-    ],
+                "name": "Carlos Garcia Rodriguez",
+                "email": "carlosgrgr@gmail.com"
+            }
+        ],
     "require": {
-        "php": ">=7.3.12"
-    },
-    "extra": {
-        "commands": [
-            "nwp"
-        ]
+        "php": ">=5.3.29"
     },
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        },
-        "files": [
-            "nwp-command.php"
-        ]
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+        "files": [ "nwp-command.php" ]
+    }
 }
