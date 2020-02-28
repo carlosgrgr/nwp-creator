@@ -18,5 +18,5 @@
             "WP_CLI_Nwp\\": "src/"
         },
         "files": [ "command.php" ]
-    },
+    }
 }
