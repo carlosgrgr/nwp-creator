@@ -1,7 +1,7 @@
 {
-    "name": "carlosgrgr/nwp-structure-creator",
+    "name": "carlosgrgr/nwp-creator",
     "description": "My first wpcli package",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Carlos Garcia Rodriguez",
