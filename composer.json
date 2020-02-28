@@ -1,8 +1,8 @@
 {
-    "name": "wp-cli/nwp-creator",
+    "name": "carlosgrgr/nwp-creator",
     "description": "My first wpcli package",
     "type": "wp-cli-package",
-    "homepage": "https://github.com/wp-cli/server-command",
+    "homepage": "https://github.com/carlosgrgr/nwp-creator",
     "license": "MIT",
     "authors": [
         {
