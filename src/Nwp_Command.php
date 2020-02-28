@@ -123,24 +123,24 @@ class Nwp_Command extends \WP_CLI_Command
                     mkdir( TEMPLATEPATH . $block_folder_path . '/' . $type, 0755, true );
                 }
                 if ( $type != 'views' ) {
-                    if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/' . $slug . '.' . $type, "a" ) ) {
+                    if ( $file1 = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/' . $slug . '.' . $type, "a" ) ) {
                         \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
                         \WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
-                    fclose($file);
+                    fclose($file1);
                 } else {
                     if ( !file_exists( TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts') ) {
                         if (mkdir( TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts', 0755, true ) ) {
 
-                            if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts/layout-editor.php', "a" ) ) {
+                            if ( $file1 = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts/layout-editor.php', "a" ) ) {
                                 \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                             } else {
                                 \WP_CLI::log( 'Error al crear el archivo ' . $type );
                             }
-                            fclose($file);
+                            fclose($file1);
 
-                            if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
+                            if ( $file1 = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
 
                                     $content_block_path = $block_folder_path . '/views/content-block.php';
 
@@ -159,7 +159,7 @@ class Nwp_Command extends \WP_CLI_Command
                             } else {
                                 \WP_CLI::log( 'Error al crear el archivo ' . $type );
                             }
-                            fclose($file);
+                            fclose($file1);
                         } else {
                             \WP_CLI::error( 'Error al crear carpeta "layouts"' );
                         }
