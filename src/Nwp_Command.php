@@ -1,6 +1,6 @@
 <?php
 
-Namespace App;
+namespace WP_CLI_Nwp;
 
 class Nwp_Command extends WP_CLI_Command
 {

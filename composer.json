@@ -14,6 +14,9 @@
         "php": ">=5.3.29"
     },
     "autoload": {
-        "files": [ "nwp-command.php" ]
-    }
+        "psr-4": {
+            "WP_CLI_Nwp\\": "src/"
+        },
+        "files": [ "command.php" ]
+    },
 }
