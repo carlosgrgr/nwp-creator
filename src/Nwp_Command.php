@@ -130,12 +130,40 @@ class Nwp_Command extends \WP_CLI_Command
                     }
                     fclose($file);
                 } else {
-                    if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
-                        \WP_CLI::log( 'Archivo ' . $type . ' creado' );
-                    } else {
-                        \WP_CLI::log( 'Error al crear el archivo ' . $type );
+                    if ( !file_exists( TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts') ) {
+                        if (mkdir( TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts', 0755, true ) ) {
+
+                            if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/layouts/layout-editor.php', "a" ) ) {
+                                \WP_CLI::log( 'Archivo ' . $type . ' creado' );
+                            } else {
+                                \WP_CLI::log( 'Error al crear el archivo ' . $type );
+                            }
+                            fclose($file);
+
+                            if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
+
+                                    $content_block_path = $block_folder_path . '/views/content-block.php';
+
+                                    if ( copy( __DIR__ . '/../templates/content-block.txt', TEMPLATEPATH . $content_block_path ) ) {
+                                        $str = file_get_contents( TEMPLATEPATH . $content_block_path );
+                                        $str = str_replace( "{blockName}", $block_name, $str );
+                                        file_put_contents( TEMPLATEPATH . $content_block_path, $str );
+                                        
+                                        \WP_CLI::log( 'Contenido de "content-block" creado' );
+                                    } else {
+                                        \WP_CLI::error( 'Eror al crear contenido de la clase' );
+                                    }
+                                    \WP_CLI::log( 'Archivo ' . $type . ' creado' );
+
+
+                            } else {
+                                \WP_CLI::log( 'Error al crear el archivo ' . $type );
+                            }
+                            fclose($file);
+                        } else {
+                            \WP_CLI::error( 'Error al crear carpeta "layouts"' );
+                        }
                     }
-                    fclose($file);
                 }
             }
 

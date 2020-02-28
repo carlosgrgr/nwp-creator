@@ -1,0 +1,7 @@
+<?php 
+if ( is_admin() ) : 
+    set_query_var( 'block', $block );
+    get_template_part( 'template-parts/blocks/content-block', 'editor' );
+else :
+    get_template_part( 'src/Blocks/{blockName}/views/layouts/layout', 'front' );
+endif;
