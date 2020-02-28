@@ -2,7 +2,7 @@
 
 namespace WP_CLI_Nwp;
 
-class Nwp_Command extends WP_CLI_Command
+class Nwp_Command extends \WP_CLI_Command
 {
     /**
      * Create or delete block or cpt files structure for nwp theme
