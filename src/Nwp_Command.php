@@ -68,7 +68,7 @@ class Nwp_Command extends \WP_CLI_Command
                 }
                 break;
             default:
-                WP_CLI::error( 'Type not valid. Try "wp nwp block" or "wp nwp cpt"' );
+                \WP_CLI::error( 'Type not valid. Try "wp nwp block" or "wp nwp cpt"' );
                 break;
         }
     }
@@ -89,12 +89,12 @@ class Nwp_Command extends \WP_CLI_Command
 
         $block_folder_path = '/src/Blocks/' . $block_name;
 
-        WP_CLI::log( 'Se va a crear un bloque en ' . TEMPLATEPATH . $block_folder_path );
+        \WP_CLI::log( 'Se va a crear un bloque en ' . TEMPLATEPATH . $block_folder_path );
         if ( !file_exists( TEMPLATEPATH . $block_folder_path ) ) {
             if (mkdir( TEMPLATEPATH . $block_folder_path, 0755, true ) ) {
-                WP_CLI::log( 'Carpeta creada' );
+                \WP_CLI::log( 'Carpeta creada' );
             } else {
-                WP_CLI::error( 'Error al crear carpeta' );
+                \WP_CLI::error( 'Error al crear carpeta' );
             }
         }
 
@@ -110,12 +110,12 @@ class Nwp_Command extends \WP_CLI_Command
                 
                 file_put_contents( TEMPLATEPATH . $block_class_path, $str );
                 
-                WP_CLI::log( 'Contenido de la clase creada' );
+                \WP_CLI::log( 'Contenido de la clase creada' );
             } else {
-                WP_CLI::error( 'Eror al crear contenido de la clase' );
+                \WP_CLI::error( 'Eror al crear contenido de la clase' );
             }
 
-            WP_CLI::log( 'Creando demás archivos' );
+            \WP_CLI::log( 'Creando demás archivos' );
             
             $types = array( 'css', 'js', 'json', 'views' );
             foreach ( $types as $type ) {
@@ -124,32 +124,32 @@ class Nwp_Command extends \WP_CLI_Command
                 }
                 if ( $type != 'views' ) {
                     if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/' . $slug . '.' . $type, "a" ) ) {
-                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
+                        \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        WP_CLI::log( 'Error al crear el archivo ' . $type );
+                        \WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 } else {
                     if ( $file = fopen(TEMPLATEPATH . $block_folder_path . '/' . $type . '/content-block.php', "a" ) ) {
-                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
+                        \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        WP_CLI::log( 'Error al crear el archivo ' . $type );
+                        \WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 }
             }
 
-            WP_CLI::success( 'Bloque creado con éxito. Debes Inicializarlo en MyBlocks.' );
+            \WP_CLI::success( 'Bloque creado con éxito. Debes Inicializarlo en MyBlocks.' );
 
         } else {
-            WP_CLI::error( 'Error al crear la clase del bloque.' );
+            \WP_CLI::error( 'Error al crear la clase del bloque.' );
         }
         fclose($file);
     }
 
     private function delete_block( $slug )
     {
-        WP_CLI::log( 'Se va a eliminar un block' );
+        \WP_CLI::log( 'Se va a eliminar un block' );
 
         $needle = '-';
         $lastPos = 0;
@@ -167,12 +167,12 @@ class Nwp_Command extends \WP_CLI_Command
 
         if ( file_exists( TEMPLATEPATH . $block_folder_path ) ) {
            if( $this->rrmdir( TEMPLATEPATH . $block_folder_path ) ) {
-               WP_CLI::success( 'Bloque eliminado con éxito.' );
+               \WP_CLI::success( 'Bloque eliminado con éxito.' );
            } else {
-               WP_CLI::error( 'Ha habido algún problema borrando el bloque. Prueba a eliminar la carpeta ' . TEMPLATEPATH . $block_folder_path . ' manualmente.' );
+               \WP_CLI::error( 'Ha habido algún problema borrando el bloque. Prueba a eliminar la carpeta ' . TEMPLATEPATH . $block_folder_path . ' manualmente.' );
            }
         } else {
-            WP_CLI::error( 'No existe ningún bloque con ese slug.' );
+            \WP_CLI::error( 'No existe ningún bloque con ese slug.' );
         }
     }
 
@@ -192,12 +192,12 @@ class Nwp_Command extends \WP_CLI_Command
 
         $cpt_folder_path = '/src/' . $cpt_name;
 
-        WP_CLI::log( 'Se va a crear un cpt en ' . TEMPLATEPATH . $cpt_folder_path );
+        \WP_CLI::log( 'Se va a crear un cpt en ' . TEMPLATEPATH . $cpt_folder_path );
         if ( !file_exists( TEMPLATEPATH . $cpt_folder_path ) ) {
             if (mkdir( TEMPLATEPATH . $cpt_folder_path, 0755, true ) ) {
-                WP_CLI::log( 'Carpeta creada' );
+                \WP_CLI::log( 'Carpeta creada' );
             } else {
-                WP_CLI::error( 'Error al crear carpeta' );
+                \WP_CLI::error( 'Error al crear carpeta' );
             }
         }
 
@@ -212,12 +212,12 @@ class Nwp_Command extends \WP_CLI_Command
                 
                 file_put_contents( TEMPLATEPATH . $cpt_class_path, $str );
                 
-                WP_CLI::log( 'Contenido de la clase creada' );
+                \WP_CLI::log( 'Contenido de la clase creada' );
             } else {
-                WP_CLI::error( 'Eror al crear contenido de la clase' );
+                \WP_CLI::error( 'Eror al crear contenido de la clase' );
             }
 
-            WP_CLI::log( 'Creando demás archivos' );
+            \WP_CLI::log( 'Creando demás archivos' );
             
             $types = array( 'json', 'views' );
             foreach ( $types as $type ) {
@@ -226,25 +226,25 @@ class Nwp_Command extends \WP_CLI_Command
                 }
                 if ( $type != 'views' ) {
                     if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/My' . $cpt_name . '.' . $type, "a" ) ) {
-                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
+                        \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        WP_CLI::log( 'Error al crear el archivo ' . $type );
+                        \WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 } else {
                     if ( $file = fopen(TEMPLATEPATH . $cpt_folder_path . '/' . $type . '/content-' . $slug . '.php', "a" ) ) {
-                        WP_CLI::log( 'Archivo ' . $type . ' creado' );
+                        \WP_CLI::log( 'Archivo ' . $type . ' creado' );
                     } else {
-                        WP_CLI::log( 'Error al crear el archivo ' . $type );
+                        \WP_CLI::log( 'Error al crear el archivo ' . $type );
                     }
                     fclose($file);
                 }
             }
 
-            WP_CLI::success( 'CPT creado con éxito. Debes Inicializarlo en MyApp.' );
+            \WP_CLI::success( 'CPT creado con éxito. Debes Inicializarlo en MyApp.' );
 
         } else {
-            WP_CLI::error( 'Error al crear la clase del bloque.' );
+            \WP_CLI::error( 'Error al crear la clase del bloque.' );
         }
         fclose($file);
 
@@ -253,7 +253,7 @@ class Nwp_Command extends \WP_CLI_Command
 
     private function delete_cpt( $slug )
     {
-        WP_CLI::log( 'Se va a eliminar un cpt' );
+        \WP_CLI::log( 'Se va a eliminar un cpt' );
 
         $needle = '-';
         $lastPos = 0;
@@ -271,12 +271,12 @@ class Nwp_Command extends \WP_CLI_Command
 
         if ( file_exists( TEMPLATEPATH . $cpt_folder_path ) ) {
            if( $this->rrmdir( TEMPLATEPATH . $cpt_folder_path ) ) {
-               WP_CLI::success( 'CPT eliminado con éxito.' );
+               \WP_CLI::success( 'CPT eliminado con éxito.' );
            } else {
-               WP_CLI::error( 'Ha habido algún problema borrando el CPT. Prueba a eliminar la carpeta ' . TEMPLATEPATH . $cpt_folder_path . ' manualmente.' );
+               \WP_CLI::error( 'Ha habido algún problema borrando el CPT. Prueba a eliminar la carpeta ' . TEMPLATEPATH . $cpt_folder_path . ' manualmente.' );
            }
         } else {
-            WP_CLI::error( 'No existe ningún CPT con ese slug.' );
+            \WP_CLI::error( 'No existe ningún CPT con ese slug.' );
         }
     }
 
